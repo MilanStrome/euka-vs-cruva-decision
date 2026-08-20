@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Euka vs. Cruva — Sales Decision Memo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F1E4;
+    --card:#FCFAF3;
+    --ink:#241C14;
+    --ink-soft:#4A4033;
+    --line:#D2C7AB;
+    --cruva:#4F6650;
+    --cruva-deep:#31402F;
+    --cruva-tint:#E4EADD;
+    --euka:#B9812E;
+    --euka-deep:#7A5518;
+    --euka-tint:#F3E5C8;
+    --brick:#AE5638;
+    --shadow: 0 1px 2px rgba(36,28,20,0.06), 0 8px 24px -12px rgba(36,28,20,0.18);
+    --font-display:'Fraunces', Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Times New Roman', serif;
+    --font-body:'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-mono:'IBM Plex Mono', 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; -webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(36,28,20,0.045) 1px, transparent 0);
+    background-size: 22px 22px;
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:16.5px;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    text-rendering:optimizeLegibility;
+    line-height:1.6;
+  }
+  .wrap{max-width:980px; margin:0 auto; padding: 0 28px;}
+  @media (max-width:640px){ .wrap{padding:0 18px;} }
+
+  h1,h2,h3{font-family:var(--font-display); font-weight:600; margin:0; letter-spacing:-0.01em; color:var(--ink);}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:13px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--ink-soft); font-weight:600;
+  }
+  .mono{font-family:var(--font-mono);}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    background:rgba(246,241,228,0.92); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{
+    max-width:980px; margin:0 auto; padding:12px 28px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .topbar-title{font-family:var(--font-mono); font-size:13px; letter-spacing:0.04em; color:var(--ink-soft);}
+  .topbar-title strong{color:var(--ink);}
+  .topbar-nav{display:flex; gap:18px;}
+  .topbar-nav a{
+    font-size:13px; font-family:var(--font-mono); color:var(--ink-soft);
+    text-decoration:none; letter-spacing:0.02em; padding:4px 0; border-bottom:1px solid transparent;
+    transition:color .15s, border-color .15s;
+  }
+  .topbar-nav a:hover, .topbar-nav a:focus-visible{color:var(--ink); border-color:var(--ink);}
+  @media (max-width:640px){ .topbar-nav{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{padding:64px 0 44px;}
+  .hero .eyebrow{margin-bottom:14px;}
+  .hero h1{
+    font-size:clamp(32px, 5vw, 50px);
+    line-height:1.08;
+    max-width:15ch;
+  }
+  .hero h1 em{font-style:italic; color:var(--cruva-deep);}
+  .hero p.lede{
+    margin-top:18px; max-width:56ch;
+    font-size:17px; color:var(--ink-soft);
+  }
+  .goal-strip{
+    margin-top:28px; display:flex; align-items:center; gap:12px;
+    padding:14px 18px; background:var(--card); border:1px solid var(--line);
+    border-radius:10px; box-shadow:var(--shadow);
+    max-width:fit-content;
+  }
+  .goal-strip .tag{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:0.06em;
+    text-transform:uppercase; background:var(--ink); color:var(--paper);
+    padding:5px 9px; border-radius:5px; white-space:nowrap;
+  }
+  .goal-strip span.q{font-size:15px; font-weight:600;}
+
+  /* ---------- scale / signature visual ---------- */
+  .scale-section{padding:10px 0 56px;}
+  .scale-card{
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
+    box-shadow:var(--shadow); padding:36px 34px 28px;
+  }
+  .scale-card h2{font-size:22px; margin-bottom:6px;}
+  .scale-card .sub{color:var(--ink-soft); font-size:14.5px; max-width:60ch; margin-bottom:8px;}
+  .scale-svg-wrap{display:flex; justify-content:center; margin: 18px 0 6px;}
+  .scale-labels{
+    display:flex; justify-content:space-between; max-width:560px; margin:0 auto;
+    font-family:var(--font-display); font-weight:600; font-size:19px;
+  }
+  .scale-labels .euka{color:var(--euka-deep);}
+  .scale-labels .cruva{color:var(--cruva-deep);}
+  .lever-legend{
+    display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-top:26px;
+  }
+  @media (max-width:760px){ .lever-legend{grid-template-columns:repeat(2,1fr);} }
+  .lever{
+    border:1px solid var(--line); border-radius:10px; padding:12px 12px 13px;
+    background:#fff; opacity:0; transform:translateY(8px);
+    animation: rise .5s ease forwards;
+  }
+  .lever .n{font-family:var(--font-mono); font-size:12px; color:var(--ink-soft); font-weight:600;}
+  .lever .name{font-size:14.5px; font-weight:700; margin-top:4px; line-height:1.3; min-height:36px; color:var(--ink);}
+  .lever .winner{
+    display:inline-block; margin-top:8px; font-family:var(--font-mono);
+    font-size:11.5px; letter-spacing:0.04em; text-transform:uppercase;
+    padding:3px 8px; border-radius:5px; font-weight:700;
+  }
+  .lever .winner.cruva-w{background:var(--cruva-tint); color:var(--cruva-deep);}
+  .lever .winner.euka-w{background:var(--euka-tint); color:var(--euka-deep);}
+
+  /* ---------- sections generic ---------- */
+  section{padding:48px 0;}
+  section.divider-top{border-top:1px solid var(--line);}
+  .section-head{margin-bottom:22px;}
+  .section-head h2{font-size:26px;}
+  .section-head .sub{color:var(--ink-soft); font-size:14.5px; margin-top:6px; max-width:62ch;}
+
+  /* ---------- pill legend used globally ---------- */
+  .pill{
+    display:inline-flex; align-items:center; gap:5px;
+    font-family:var(--font-mono); font-size:11.5px; letter-spacing:0.03em;
+    padding:3px 9px; border-radius:20px; font-weight:700; text-transform:uppercase;
+  }
+  .pill.verified{background:#DCE7DC; color:#33502E;}
+  .pill.claim{background:#F2E3C6; color:#7A5417;}
+  .pill.opinion{background:#EAE0F2; color:#5B3C79;}
+  .pill.analysis{background:#DDE6EE; color:#2A4A66;}
+
+  .legend-row{display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; margin-bottom:26px; font-size:13.5px; color:var(--ink-soft);}
+  .legend-row .pill{margin-right:2px;}
+
+  /* ---------- toggle scorecard ---------- */
+  .toggle-bar{display:flex; gap:8px; margin-bottom:16px;}
+  .toggle-btn{
+    font-family:var(--font-mono); font-size:13px; letter-spacing:0.03em;
+    padding:9px 15px; border-radius:8px; border:1px solid var(--line); background:#fff;
+    cursor:pointer; color:var(--ink-soft); transition:all .15s;
+  }
+  .toggle-btn.active{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+  .toggle-btn:hover:not(.active){border-color:var(--ink);}
+
+  table{width:100%; border-collapse:collapse; background:var(--card); border-radius:12px; overflow:hidden; box-shadow:var(--shadow);}
+  thead th{
+    text-align:left; font-family:var(--font-mono); font-size:12px;
+    letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-soft); font-weight:700;
+    padding:13px 14px; border-bottom:1px solid var(--line); background:#F1EADA;
+  }
+  tbody td{padding:14px 14px; border-bottom:1px solid var(--line); font-size:15px; vertical-align:top; color:var(--ink);}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr.only-critical{display:none;}
+  tbody tr.only-critical.show{display:table-row;}
+  .score{font-family:var(--font-mono); font-weight:700; font-size:15px; color:var(--ink);}
+  .score.win{color:var(--cruva-deep);}
+  .score.win-euka{color:var(--euka-deep);}
+  .winner-badge{
+    display:inline-block; font-family:var(--font-mono); font-size:11.5px;
+    padding:3px 8px; border-radius:5px; font-weight:700; letter-spacing:0.02em;
+  }
+  .winner-badge.c{background:var(--cruva-tint); color:var(--cruva-deep);}
+  .winner-badge.e{background:var(--euka-tint); color:var(--euka-deep);}
+  .winner-badge.t{background:#EDE7DA; color:var(--ink-soft);}
+  .why-cell{color:var(--ink-soft); font-size:14.5px; max-width:280px; line-height:1.5;}
+
+  /* ---------- pricing ladder ---------- */
+  .pricing-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  @media (max-width:700px){ .pricing-grid{grid-template-columns:1fr;} }
+  .price-col{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px 22px 24px; box-shadow:var(--shadow);}
+  .price-col h3{font-size:17px; display:flex; align-items:center; gap:9px;}
+  .dot{width:10px; height:10px; border-radius:50%; display:inline-block;}
+  .dot.e{background:var(--euka);}
+  .dot.c{background:var(--cruva);}
+  .steps{margin-top:16px; display:flex; flex-direction:column; gap:8px;}
+  .step{
+    display:flex; align-items:center; justify-content:space-between;
+    border:1px solid var(--line); border-radius:8px; padding:10px 12px; background:#fff;
+  }
+  .step .lbl{font-size:14.5px; font-weight:600; color:var(--ink);}
+  .step .price{font-family:var(--font-mono); font-size:14.5px; font-weight:700; color:var(--ink);}
+  .step.jump{border-color:var(--brick); background:#FBEDE7;}
+  .jump-flag{
+    font-family:var(--font-mono); font-size:12.5px; color:var(--brick); font-weight:600;
+    margin-top:8px; padding-left:2px;
+  }
+  .cap-note{
+    margin-top:14px; font-size:13.5px; color:var(--ink-soft); border-top:1px dashed var(--line); padding-top:12px; line-height:1.5;
+  }
+
+  /* ---------- caveats ---------- */
+  .caveat-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:700px){ .caveat-grid{grid-template-columns:1fr;} }
+  .caveat{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px;}
+  .caveat .pill{margin-bottom:8px;}
+  .caveat p{font-size:14.5px; color:var(--ink-soft); margin:0; line-height:1.5;}
+
+  /* ---------- test plan ---------- */
+  .kpi-table td, .kpi-table th{text-align:left;}
+  .kpi-table td.fill{color:#B7AC93;}
+  .kpi-table .metric{font-weight:600;}
+
+  /* ---------- verdict ---------- */
+  .verdict{
+    background: linear-gradient(155deg, var(--cruva-deep), var(--cruva));
+    color:#F6F1E4; border-radius:18px; padding:40px 38px; box-shadow:var(--shadow);
+    position:relative; overflow:hidden;
+  }
+  .verdict::after{
+    content:""; position:absolute; right:-60px; bottom:-60px; width:220px; height:220px;
+    border-radius:50%; background:rgba(255,255,255,0.06);
+  }
+  .verdict .eyebrow{color:#D9E4D6;}
+  .verdict h2{color:#fff; font-size:28px; margin-top:8px; max-width:22ch;}
+  .verdict p{color:#E5EBE2; font-size:14.5px; max-width:62ch; margin-top:12px;}
+  .verdict .caveat-line{
+    margin-top:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.2);
+    font-size:12.5px; color:#D9E4D6; max-width:62ch;
+  }
+  .next-actions{margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;}
+  .next-actions .step-chip{
+    background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.28);
+    border-radius:20px; padding:7px 14px; font-size:13px; font-family:var(--font-mono); font-weight:600;
+  }
+
+  footer{padding:36px 0 60px; text-align:center; color:var(--ink-soft); font-size:13.5px;}
+
+  @keyframes rise{ to{ opacity:1; transform:translateY(0); } }
+  .lever:nth-child(1){animation-delay:.05s;}
+  .lever:nth-child(2){animation-delay:.15s;}
+  .lever:nth-child(3){animation-delay:.25s;}
+  .lever:nth-child(4){animation-delay:.35s;}
+  .lever:nth-child(5){animation-delay:.45s;}
+
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .55s ease, transform .55s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .lever, .reveal{animation:none !important; transition:none !important; opacity:1 !important; transform:none !important;}
+    #beam{transition:none !important;}
+  }
+
+  a{color:var(--cruva-deep);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-title"><strong>Euka vs. Cruva</strong> · sales decision memo</div>
+    <nav class="topbar-nav">
+      <a href="#levers">Sales levers</a>
+      <a href="#scorecard">Scorecard</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#caveats">Caveats</a>
+      <a href="#test">Test plan</a>
+      <a href="#verdict">Verdict</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow">Internal · TikTok Shop affiliate tooling · wooden toys</div>
+    <h1>One goal decides this: which tool sells <em>more toys</em>.</h1>
+    <p class="lede">We compared Euka and Cruva across 21 categories. Once we pin the decision to a single goal — increasing product sales — most of that comparison becomes noise. This memo keeps only what moves sales, and flags exactly how confident we are in each claim.</p>
+    <div class="goal-strip">
+      <span class="tag">Goal</span>
+      <span class="q">Increase sales of our products — everything else is secondary.</span>
+    </div>
+  </section>
+
+  <section class="scale-section reveal" id="levers">
+    <div class="scale-card">
+      <div class="eyebrow" style="margin-bottom:8px;">The sales math</div>
+      <h2>5 levers actually move revenue. Cruva wins 4 of them.</h2>
+      <p class="sub">Sales = (creators who can sell in-category) × (% who post) × (videos per creator) × (views→conversion). Below is which platform is stronger on each lever, based on verified feature sets — not marketing copy.</p>
+
+      <div class="scale-svg-wrap">
+        <svg width="560" height="150" viewBox="0 0 560 150" aria-label="Balance scale tipped toward Cruva, 4 of 5 sales levers won by Cruva, 1 of 5 won by Euka">
+          <!-- fulcrum -->
+          <polygon points="280,150 258,118 302,118" fill="#241C14"/>
+          <circle cx="280" cy="112" r="7" fill="#241C14"/>
+          <!-- beam group, rotated via css -->
+          <g id="beam">
+            <line x1="70" y1="70" x2="490" y2="70" stroke="#241C14" stroke-width="4" stroke-linecap="round"/>
+            <!-- euka side (left, higher = lost) -->
+            <line x1="70" y1="70" x2="70" y2="40" stroke="#8C611E" stroke-width="3"/>
+            <circle cx="70" cy="34" r="15" fill="#F3E5C8" stroke="#B9812E" stroke-width="2.5"/>
+            <text x="70" y="39" text-anchor="middle" font-family="IBM Plex Mono, SF Mono, Menlo, Consolas, monospace" font-size="12" font-weight="700" fill="#8C611E">1</text>
+            <!-- cruva side (right, lower = won, heavier) -->
+            <line x1="490" y1="70" x2="490" y2="104" stroke="#374A3A" stroke-width="3"/>
+            <circle cx="490" cy="112" r="19" fill="#E4EADD" stroke="#4F6650" stroke-width="2.5"/>
+            <text x="490" y="118" text-anchor="middle" font-family="IBM Plex Mono, SF Mono, Menlo, Consolas, monospace" font-size="14" font-weight="700" fill="#374A3A">4</text>
+          </g>
+        </svg>
+      </div>
+      <div class="scale-labels">
+        <span class="euka">Euka — 1 lever</span>
+        <span class="cruva">Cruva — 4 levers</span>
+      </div>
+
+      <div class="lever-legend">
+        <div class="lever">
+          <div class="n">Lever 01</div>
+          <div class="name">Find creators already selling in-category</div>
+          <span class="winner cruva-w">Cruva</span>
+        </div>
+        <div class="lever">
+          <div class="n">Lever 02</div>
+          <div class="name">Clone your winners (lookalike search)</div>
+          <span class="winner cruva-w">Cruva</span>
+        </div>
+        <div class="lever">
+          <div class="n">Lever 03</div>
+          <div class="name">Turn samples into posted videos</div>
+          <span class="winner cruva-w">Cruva</span>
+        </div>
+        <div class="lever">
+          <div class="n">Lever 04</div>
+          <div class="name">Lock in repeat posts from proven sellers</div>
+          <span class="winner euka-w">Euka</span>
+        </div>
+        <div class="lever">
+          <div class="n">Lever 05</div>
+          <div class="name">Know which creator/video to fund more</div>
+          <span class="winner cruva-w">Cruva</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="divider-top reveal" id="scorecard">
+    <div class="section-head">
+      <h2>Head-to-head scorecard</h2>
+      <p class="sub">All 21 categories we researched, scored 1–10. Toggle to the 7 that most directly affect sales.</p>
+    </div>
+
+    <div class="legend-row">
+      <span class="pill verified">Verified</span> confirmed on the company's own site
+      <span class="pill claim">Vendor claim</span> stated by the company, unverified
+      <span class="pill opinion">3rd-party</span> outside review/aggregator, possibly biased
+      <span class="pill analysis">Our read</span> our judgment from available evidence
+    </div>
+
+    <div class="toggle-bar">
+      <button class="toggle-btn active" id="btn-all" onclick="showRows('all')">All 21 categories</button>
+      <button class="toggle-btn" id="btn-crit" onclick="showRows('crit')">Sales-critical only (7)</button>
+    </div>
+
+    <div style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr><th style="width:26%;">Category</th><th style="width:12%;">Euka</th><th style="width:12%;">Cruva</th><th style="width:12%;">Winner</th><th>Why it matters for sales</th></tr>
+      </thead>
+      <tbody id="score-body">
+        <tr class="only-critical show"><td>Niche &amp; competitor discovery</td><td class="score">7.0</td><td class="score win">9.0</td><td><span class="winner-badge c">Cruva</span></td><td class="why-cell">Warm, proven-to-sell creators beat cold AI matches — this is your highest-leverage sourcing move.</td></tr>
+        <tr class="only-critical show"><td>Lookalike targeting</td><td class="score">6.5</td><td class="score win">8.5</td><td><span class="winner-badge c">Cruva</span></td><td class="why-cell">Cloning your winners is the fastest way to compound sales once you have any data.</td></tr>
+        <tr class="only-critical show"><td>Sample-to-video tracking</td><td class="score">8.5</td><td class="score win">9.0</td><td><span class="winner-badge c">Cruva</span></td><td class="why-cell">Sample spend that doesn't become a video can't become a sale.</td></tr>
+        <tr class="only-critical show"><td>Auto follow-up: sampled, didn't post</td><td class="score win-euka">8.5</td><td class="score">7.5</td><td><span class="winner-badge e">Euka</span></td><td class="why-cell">Recovers stalled samples — this is Euka's single sharpest sales-relevant feature.</td></tr>
+        <tr class="only-critical show"><td>Encouraging 2nd/3rd videos</td><td class="score">8.5</td><td class="score">8.5</td><td><span class="winner-badge t">Tie</span></td><td class="why-cell">Retainer (Euka) vs. community (Cruva) — both compound sales, different mechanism.</td></tr>
+        <tr class="only-critical show"><td>GMV attribution &amp; reporting</td><td class="score">7.5</td><td class="score win">9.0</td><td><span class="winner-badge c">Cruva</span></td><td class="why-cell">Know which creator to fund more — direct input to where you spend next.</td></tr>
+        <tr class="only-critical show"><td>Pricing &amp; value for money</td><td class="score">6.5</td><td class="score win">8.0</td><td><span class="winner-badge c">Cruva</span></td><td class="why-cell">More budget stays in samples/commissions instead of tooling.</td></tr>
+
+        <tr><td>Creator discovery &amp; quality</td><td class="score">8.0</td><td class="score">8.0</td><td><span class="winner-badge t">Tie</span></td><td class="why-cell">Both claim 4M+ creators with AI search; Euka's multimodal (image) search is a real edge in depth.</td></tr>
+        <tr><td>Database size &amp; accuracy</td><td class="score">7.0</td><td class="score">7.0</td><td><span class="winner-badge t">Tie</span></td><td class="why-cell">Both claim 4M+; unverifiable independently.</td></tr>
+        <tr><td>Creator GMV/sales data</td><td class="score">7.5</td><td class="score">7.5</td><td><span class="winner-badge t">Tie</span></td><td class="why-cell">Both surface per-creator GMV in search results.</td></tr>
+        <tr><td>Invite/collab automation</td><td class="score">7.5</td><td class="score">8.5</td><td><span class="winner-badge c">Cruva</span></td><td class="why-cell">Named as a core tracked metric in Cruva's own dashboard.</td></tr>
+        <tr><td>Messaging &amp; follow-ups</td><td class="score">8.0</td><td class="score">8.0</td><td><span class="winner-badge t">Tie</span></td><td class="why-cell">Comparable automation depth on both sides.</td></tr>
+        <tr><td>Sample request management</td><td class="score">7.5</td><td class="score">8.5</td><td><span class="winner-badge c">Cruva</span></td><td class="why-cell">AI approval named explicitly at an accessible tier.</td></tr>
+        <tr><td>Segmentation &amp; CRM</td><td class="score">8.0</td><td class="score">8.0</td><td><span class="winner-badge t">Tie</span></td><td class="why-cell">Both offer full-pipeline behavioral CRM.</td></tr>
+        <tr><td>Performance tracking</td><td class="score">8.0</td><td class="score">8.0</td><td><span class="winner-badge t">Tie</span></td><td class="why-cell">Comparable real-time dashboards.</td></tr>
+        <tr><td>Contests &amp; leaderboards</td><td class="score win-euka">8.5</td><td class="score">7.5</td><td><span class="winner-badge e">Euka</span></td><td class="why-cell">More built-out contest UI shown publicly.</td></tr>
+        <tr><td>AI capabilities</td><td class="score">8.0</td><td class="score">8.0</td><td><span class="winner-badge t">Tie</span></td><td class="why-cell">Both ship Claude/MCP integration at top tiers.</td></tr>
+        <tr><td>TikTok Shop integration</td><td class="score">8.5</td><td class="score">8.5</td><td><span class="winner-badge t">Tie</span></td><td class="why-cell">Both verified Official TikTok Shop Partners.</td></tr>
+        <tr><td>Ease of use <span class="pill opinion" style="margin-left:4px;">low conf.</span></td><td class="score">7.0</td><td class="score">7.0</td><td><span class="winner-badge t">Unclear</span></td><td class="why-cell">Almost no independent evidence for either.</td></tr>
+        <tr><td>Customer support</td><td class="score">7.5</td><td class="score">7.5</td><td><span class="winner-badge t">Tie</span></td><td class="why-cell">Similar dedicated-AM structure at top tiers.</td></tr>
+        <tr><td>Time saved vs. manual</td><td class="score">8.0</td><td class="score">8.5</td><td><span class="winner-badge c">Cruva</span></td><td class="why-cell">More specific, quantified customer quotes published.</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="divider-top reveal" id="pricing">
+    <div class="section-head">
+      <h2>Pricing ladder — where budget stops being tooling and starts being samples</h2>
+      <p class="sub"><span class="pill verified">Verified</span> directly from each company's own pricing page.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-col">
+        <h3><span class="dot e"></span>Euka</h3>
+        <div class="steps">
+          <div class="step"><span class="lbl">Starter</span><span class="price">$199/mo</span></div>
+          <div class="step jump"><span class="lbl">Growth</span><span class="price">$599/mo</span></div>
+          <div class="step"><span class="lbl">Enterprise / Agency</span><span class="price">Custom</span></div>
+        </div>
+        <div class="jump-flag">⚠ Starter capped under $2K/mo GMV — a 3× jump the moment your program works.</div>
+      </div>
+      <div class="price-col">
+        <h3><span class="dot c"></span>Cruva</h3>
+        <div class="steps">
+          <div class="step"><span class="lbl">Basic</span><span class="price">$199/mo</span></div>
+          <div class="step"><span class="lbl">Growth</span><span class="price">$399/mo</span></div>
+          <div class="step"><span class="lbl">Scale</span><span class="price">$599/mo</span></div>
+          <div class="step"><span class="lbl">Enterprise</span><span class="price">Custom</span></div>
+        </div>
+        <div class="cap-note">No GMV cap disclosed on entry tier · 14-day trial + 2-week money-back guarantee stated in writing.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="divider-top reveal" id="caveats">
+    <div class="section-head">
+      <h2>What we don't actually know</h2>
+      <p class="sub">Read this before the team locks in a decision off this memo alone.</p>
+    </div>
+    <div class="caveat-grid">
+      <div class="caveat"><span class="pill opinion">Thin proof</span><p>Euka has 2 public G2 reviews (one marked "incentivized"). We found no populated G2 or Trustpilot profile for Cruva at all.</p></div>
+      <div class="caveat"><span class="pill claim">Unverified</span><p>Both companies' "4M+ creators" and total GMV figures are self-reported and not independently auditable.</p></div>
+      <div class="caveat"><span class="pill claim">Zero niche proof</span><p>No published case study for either tool in kids' / parenting / Montessori / toy categories. Public case studies skew beauty and wellness.</p></div>
+      <div class="caveat"><span class="pill opinion">No real Reddit data</span><p>Several "Reddit review" articles we found are SEO content, not actual Reddit threads. Genuine seller-community sentiment is largely unverified.</p></div>
+    </div>
+  </section>
+
+  <section class="divider-top reveal" id="test">
+    <div class="section-head">
+      <h2>14-day test plan</h2>
+      <p class="sub">Run both trials in parallel, same product, same commission rate, same target creator profile. Score only what answers the sales question.</p>
+    </div>
+    <div style="overflow-x:auto;">
+    <table class="kpi-table">
+      <thead><tr><th style="width:46%;">KPI</th><th>Euka</th><th>Cruva</th></tr></thead>
+      <tbody>
+        <tr><td class="metric">Invite acceptance rate</td><td class="fill">—</td><td class="fill">—</td></tr>
+        <tr><td class="metric">Sample approval rate</td><td class="fill">—</td><td class="fill">—</td></tr>
+        <tr><td class="metric">Sample-to-post rate</td><td class="fill">—</td><td class="fill">—</td></tr>
+        <tr><td class="metric">Videos per creator</td><td class="fill">—</td><td class="fill">—</td></tr>
+        <tr><td class="metric">Reply / response rate</td><td class="fill">—</td><td class="fill">—</td></tr>
+        <tr><td class="metric" style="font-weight:800;">Creator GMV generated</td><td class="fill">—</td><td class="fill">—</td></tr>
+        <tr><td class="metric" style="font-weight:800;">GMV per sample delivered</td><td class="fill">—</td><td class="fill">—</td></tr>
+        <tr><td class="metric">Total platform cost (14 days)</td><td class="fill">—</td><td class="fill">—</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:13px; color:var(--ink-soft); margin-top:14px;">Decide on the two bolded rows. Ignore UI polish and support responsiveness for this decision — they don't move sales.</p>
+  </section>
+
+  <section class="divider-top reveal" id="verdict">
+    <div class="verdict">
+      <div class="eyebrow">Recommendation</div>
+      <h2>Lean Cruva. Confirm it with 14 days of real sales data.</h2>
+      <p>Cruva wins 4 of 5 sales levers and has the friendlier pricing ladder for a growing shop. Euka's one clear win — locking in repeat posts from proven sellers via retainers — is real and worth keeping in the mix once you have winners to lock in.</p>
+      <div class="next-actions">
+        <span class="step-chip">1. Start both trials this week</span>
+        <span class="step-chip">2. Same product, same commission, same creator brief</span>
+        <span class="step-chip">3. Score only GMV per sample at day 14</span>
+        <span class="step-chip">4. Decide — no averaging the other 19 categories</span>
+      </div>
+      <div class="caveat-line">This is a lean, not a certainty — independent verification for both tools is thin. The 14-day number from your own audience beats anything in this memo.</div>
+    </div>
+  </section>
+
+</div>
+
+<footer>Internal decision memo · compiled from euka.ai and cruva.com pricing/product pages, G2, and third-party comparisons · not independently audited</footer>
+
+<script>
+  // tip the scale beam toward Cruva on load
+  window.addEventListener('DOMContentLoaded', function(){
+    var beam = document.getElementById('beam');
+    if(beam){
+      beam.style.transformOrigin = '280px 112px';
+      beam.style.transform = 'rotate(0deg)';
+      beam.style.transition = 'transform 1.1s cubic-bezier(.2,.8,.2,1)';
+      requestAnimationFrame(function(){
+        setTimeout(function(){ beam.style.transform = 'rotate(6deg)'; }, 200);
+      });
+    }
+  });
+
+  function showRows(mode){
+    var all = mode === 'all';
+    document.getElementById('btn-all').classList.toggle('active', all);
+    document.getElementById('btn-crit').classList.toggle('active', !all);
+    document.querySelectorAll('#score-body tr').forEach(function(row){
+      if(row.classList.contains('only-critical')){ row.classList.add('show'); return; }
+      row.style.display = all ? 'table-row' : 'none';
+    });
+  }
+
+  // scroll reveal
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); } });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ observer.observe(el); });
+</script>
+
+</body>
+</html>
