@@ -265,6 +265,101 @@
   }
 
   a{color:var(--cruva-deep);}
+
+  /* ---------- questions button (topbar) ---------- */
+  .q-btn{
+    font-family:var(--font-mono); font-size:12.5px; letter-spacing:0.06em;
+    text-transform:uppercase; font-weight:700; cursor:pointer;
+    padding:7px 14px; border-radius:8px; border:1.5px solid var(--ink);
+    background:var(--ink); color:var(--paper); transition:all .15s;
+    white-space:nowrap;
+  }
+  .q-btn:hover{background:transparent; color:var(--ink);}
+  .q-btn .q-count{
+    display:inline-block; margin-left:6px; background:var(--euka);
+    color:#fff; border-radius:10px; padding:0 7px; font-size:11px;
+  }
+
+  /* ---------- questions page ---------- */
+  #page-questions{display:none;}
+  #page-questions.active{display:block;}
+  .q-hero{padding:52px 0 10px;}
+  .q-hero h1{font-size:clamp(28px,4.5vw,42px); line-height:1.1; max-width:20ch;}
+  .q-hero .lede{margin-top:14px; max-width:60ch; font-size:16px; color:var(--ink-soft);}
+  .q-back{
+    display:inline-flex; align-items:center; gap:7px; margin-bottom:18px;
+    font-family:var(--font-mono); font-size:13px; font-weight:600;
+    color:var(--ink-soft); text-decoration:none; cursor:pointer;
+    border:none; background:none; padding:0;
+  }
+  .q-back:hover{color:var(--ink);}
+
+  .q-toolbar{
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+    margin:24px 0 8px;
+  }
+  .q-stat{
+    font-family:var(--font-mono); font-size:13px; color:var(--ink-soft);
+    background:var(--card); border:1px solid var(--line); border-radius:8px;
+    padding:8px 12px;
+  }
+  .q-stat strong{color:var(--ink);}
+  .q-copy-btn{
+    font-family:var(--font-mono); font-size:12.5px; font-weight:700;
+    padding:8px 13px; border-radius:8px; border:1px solid var(--line);
+    background:#fff; color:var(--ink-soft); cursor:pointer; transition:all .15s;
+  }
+  .q-copy-btn:hover{border-color:var(--ink); color:var(--ink);}
+
+  .fav-section{
+    margin-top:22px; background:var(--euka-tint); border:1.5px dashed var(--euka);
+    border-radius:14px; padding:20px 22px;
+  }
+  .fav-section h2{font-size:20px; display:flex; align-items:center; gap:9px; color:var(--euka-deep);}
+  .fav-section .fav-empty{
+    font-size:14px; color:var(--ink-soft); margin:10px 0 0; font-style:italic;
+  }
+  .fav-section .q-item{background:#fff;}
+
+  .q-group{padding:34px 0 6px;}
+  .q-group-head{display:flex; align-items:baseline; gap:12px; margin-bottom:14px;}
+  .q-group-head h2{font-size:22px;}
+  .q-group-head .g-count{font-family:var(--font-mono); font-size:12.5px; color:var(--ink-soft);}
+  .q-group-sub{font-size:14px; color:var(--ink-soft); margin:-8px 0 16px; max-width:64ch;}
+
+  .q-list{display:flex; flex-direction:column; gap:10px; margin-top:6px;}
+  .q-item{
+    display:flex; align-items:flex-start; gap:14px;
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:15px 17px; box-shadow:var(--shadow); transition:border-color .15s, background .15s;
+  }
+  .q-item.faved{border-color:var(--euka);}
+  .q-item .q-num{
+    font-family:var(--font-mono); font-size:12.5px; font-weight:700;
+    color:var(--ink-soft); background:#F1EADA; border:1px solid var(--line);
+    border-radius:6px; padding:3px 8px; margin-top:2px; white-space:nowrap;
+  }
+  .q-item .q-text{flex:1; font-size:15px; line-height:1.55; color:var(--ink);}
+  .q-item .q-cat{
+    display:inline-block; margin-top:7px; font-family:var(--font-mono);
+    font-size:11px; letter-spacing:0.05em; text-transform:uppercase;
+    color:var(--cruva-deep); background:var(--cruva-tint);
+    padding:2px 8px; border-radius:5px; font-weight:700;
+  }
+  .star-btn{
+    flex-shrink:0; width:38px; height:38px; border-radius:9px;
+    border:1px solid var(--line); background:#fff; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    font-size:19px; line-height:1; color:#C9BC9C; transition:all .15s;
+    margin-top:-2px;
+  }
+  .star-btn:hover{border-color:var(--euka); color:var(--euka);}
+  .star-btn.on{background:var(--euka); border-color:var(--euka); color:#fff;}
+
+  @media (max-width:560px){
+    .q-item{padding:13px 13px; gap:10px;}
+    .q-item .q-num{display:none;}
+  }
 </style>
 </head>
 <body>
@@ -273,17 +368,18 @@
   <div class="topbar-inner">
     <div class="topbar-title"><strong>Euka vs. Cruva</strong> · sales decision memo</div>
     <nav class="topbar-nav">
-      <a href="#levers">Sales levers</a>
-      <a href="#scorecard">Scorecard</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#caveats">Caveats</a>
-      <a href="#test">Test plan</a>
-      <a href="#verdict">Verdict</a>
+      <a href="#levers" onclick="showPage('memo')">Sales levers</a>
+      <a href="#scorecard" onclick="showPage('memo')">Scorecard</a>
+      <a href="#pricing" onclick="showPage('memo')">Pricing</a>
+      <a href="#caveats" onclick="showPage('memo')">Caveats</a>
+      <a href="#test" onclick="showPage('memo')">Test plan</a>
+      <a href="#verdict" onclick="showPage('memo')">Verdict</a>
     </nav>
+    <button class="q-btn" id="q-toggle-btn" onclick="togglePage()">Questions<span class="q-count" id="q-fav-badge" style="display:none;">0</span></button>
   </div>
 </div>
 
-<div class="wrap">
+<div class="wrap" id="page-memo">
 
   <section class="hero">
     <div class="eyebrow">Internal · TikTok Shop affiliate tooling · wooden toys</div>
@@ -487,6 +583,29 @@
 
 </div>
 
+<div class="wrap" id="page-questions">
+  <section class="q-hero">
+    <button class="q-back" onclick="showPage('memo')">← Back to memo</button>
+    <div class="eyebrow">Due diligence · ask before you pay</div>
+    <h1>21 questions for the Cruva sales call.</h1>
+    <p class="lede">Everything the website didn't answer. Star the ones you must get answered before signing — favorites pin to the top so you can run the call straight off this page.</p>
+    <div class="q-toolbar">
+      <div class="q-stat"><strong id="q-total">21</strong> questions · <strong id="q-faved-n">0</strong> starred</div>
+      <button class="q-copy-btn" onclick="copyFavs()" id="q-copy-btn">Copy starred questions</button>
+    </div>
+  </section>
+
+  <div class="fav-section" id="fav-section">
+    <h2>★ Favorites</h2>
+    <p class="fav-empty" id="fav-empty">Nothing starred yet — tap the star on any question below to pin it here.</p>
+    <div class="q-list" id="fav-list"></div>
+  </div>
+
+  <div id="q-groups"></div>
+
+  <div style="height:56px;"></div>
+</div>
+
 <footer>Internal decision memo · compiled from euka.ai and cruva.com pricing/product pages, G2, and third-party comparisons · not independently audited</footer>
 
 <script>
@@ -518,6 +637,175 @@
     entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); } });
   }, {threshold:0.12});
   document.querySelectorAll('.reveal').forEach(function(el){ observer.observe(el); });
+
+  /* ================= QUESTIONS PAGE ================= */
+
+  var Q_GROUPS = [
+    {
+      id:'migration', name:'Migration & existing pipeline',
+      sub:'We already have creators invited, sampled, and mid-conversation. These decide whether Cruva plugs into that pipeline or resets it.',
+      items:[
+        {n:1, t:'Can we bulk-import our existing creator list (already invited / sampled / followed up) via CSV, and will it correctly tag their current stage so Cruva doesn\'t re-invite or re-sample them?'},
+        {n:2, t:'How do existing creators sync into Cruva — all our current data like who we invited, who got samples, follow-ups already done: does it auto-sync from TikTok Shop / Affiliate Center, or is there another method (CSV, manual tagging)?'},
+        {n:3, t:'If a creator already received a free sample outside Cruva, can we mark that manually so Cruva\'s automation treats them as "sampled" and starts follow-up logic from there — not from zero?'},
+        {n:4, t:'Does importing historical data (past messages, sample dates) affect our GMV attribution and sample-to-post metrics, or does the dashboard only start counting from the day we activate?'},
+        {n:5, t:'If we\'re mid-conversation with a creator on TikTok\'s native chat, does Cruva take over that thread, or does it start a separate one (risk of the creator getting double-messaged)?'}
+      ]
+    },
+    {
+      id:'pricing', name:'Pricing & contract clarity',
+      sub:'Terms not stated clearly anywhere on the site. Get every one of these in writing.',
+      items:[
+        {n:6, t:'Is there a GMV cap on the Basic ($199) tier, or any tier? The exact terms weren\'t published anywhere we could find.'},
+        {n:7, t:'What exactly counts toward the "5 concurrent automations" limit on Basic — is a single "sampled but didn\'t post → follow-up" sequence one automation, or does each message step count separately?'},
+        {n:8, t:'What happens if we exceed the outreach volume cap mid-month — hard stop, overage charge, or forced upgrade?'},
+        {n:9, t:'Is the 14-day trial a full-featured trial of Growth/Scale, or Basic-tier only?'},
+        {n:10, t:'Exact terms of the money-back guarantee — full refund, any usage conditions, and how do we invoke it?'},
+        {n:11, t:'Is there a contract lock-in, or is it month-to-month cancel-anytime?'}
+      ]
+    },
+    {
+      id:'features', name:'Feature verification',
+      sub:'Claims worth pressure-testing live on the demo, in our niche, before believing them.',
+      items:[
+        {n:12, t:'Competitor Discovery — can we search by product category (e.g., "wooden Montessori toys") and not just by a named competitor brand? Our competitors aren\'t all big enough to have obvious affiliate rosters.'},
+        {n:13, t:'How does Halo Effect attribution work if we also sell on Shopify/Amazon — does it need those stores connected, and how accurate has it been for other sellers in a similar low-AOV category (toys, not $80 skincare)?'},
+        {n:14, t:'Can you share a reference customer in the kids / parenting / toys / education category, even off the record? (Direct test of the "no niche case study" gap we found.)'},
+        {n:15, t:'AI Sample Approval — can we set custom approval rules (e.g., auto-approve creators with parenting-content history, auto-reject spam-looking accounts), or is it a black-box AI decision?'},
+        {n:16, t:'How does the platform verify a creator\'s follower base isn\'t fake / bot-inflated, especially for kids & parenting niche creators?'}
+      ]
+    },
+    {
+      id:'ops', name:'Operational & support',
+      sub:'What day-to-day actually looks like after the sale closes.',
+      items:[
+        {n:17, t:'What does onboarding actually include — do you set up our first automations and segments for us, or do we build them from templates alone?'},
+        {n:18, t:'What\'s the actual response time for support at our tier (Basic/Growth), not just "priority support" language?'},
+        {n:19, t:'If TikTok changes its API or policies, how fast has Cruva historically adapted — and is there any account-risk liability on us if their automation triggers a TikTok Shop compliance flag?'}
+      ]
+    },
+    {
+      id:'exit', name:'Data ownership & exit',
+      sub:'Make sure our creator CRM is ours, not theirs, if we ever leave.',
+      items:[
+        {n:20, t:'If we cancel, do we keep our creator data / CRM history (exportable), or is it locked in the platform?'},
+        {n:21, t:'Who owns the messaging history with creators after cancellation — can we still see past conversations for reference?'}
+      ]
+    }
+  ];
+
+  // --- safe storage (falls back to in-memory if localStorage is blocked) ---
+  var memStore = {};
+  var FAV_KEY = 'evc_question_favs_v2';
+  function loadFavs(){
+    try{
+      var raw = localStorage.getItem(FAV_KEY);
+      return raw ? JSON.parse(raw) : {};
+    }catch(e){ return memStore; }
+  }
+  function saveFavs(f){
+    try{ localStorage.setItem(FAV_KEY, JSON.stringify(f)); }
+    catch(e){ memStore = f; }
+  }
+  var favs = loadFavs();
+
+  function allQuestions(){
+    var out = [];
+    Q_GROUPS.forEach(function(g){
+      g.items.forEach(function(q){ out.push({n:q.n, t:q.t, cat:g.name}); });
+    });
+    return out;
+  }
+
+  function qItemHTML(q, showCat){
+    var on = !!favs[q.n];
+    return '<div class="q-item' + (on ? ' faved' : '') + '" data-n="' + q.n + '">' +
+      '<span class="q-num">Q' + q.n + '</span>' +
+      '<div class="q-text">' + q.t + (showCat ? '<br><span class="q-cat">' + q.cat + '</span>' : '') + '</div>' +
+      '<button class="star-btn' + (on ? ' on' : '') + '" onclick="toggleFav(' + q.n + ')" aria-label="Favorite question ' + q.n + '" title="' + (on ? 'Unstar' : 'Star') + '">' + (on ? '★' : '☆') + '</button>' +
+    '</div>';
+  }
+
+  function render(){
+    // favorites (sorted by question number)
+    var starred = allQuestions().filter(function(q){ return favs[q.n]; });
+    var favList = document.getElementById('fav-list');
+    var favEmpty = document.getElementById('fav-empty');
+    favList.innerHTML = starred.map(function(q){ return qItemHTML(q, true); }).join('');
+    favEmpty.style.display = starred.length ? 'none' : 'block';
+
+    // groups
+    var wrap = document.getElementById('q-groups');
+    wrap.innerHTML = Q_GROUPS.map(function(g){
+      return '<section class="q-group divider-top">' +
+        '<div class="q-group-head"><h2>' + g.name + '</h2><span class="g-count">' + g.items.length + ' questions</span></div>' +
+        '<p class="q-group-sub">' + g.sub + '</p>' +
+        '<div class="q-list">' + g.items.map(function(q){ return qItemHTML(q, false); }).join('') + '</div>' +
+      '</section>';
+    }).join('');
+
+    // counters
+    document.getElementById('q-faved-n').textContent = starred.length;
+    var badge = document.getElementById('q-fav-badge');
+    badge.textContent = starred.length;
+    badge.style.display = starred.length ? 'inline-block' : 'none';
+  }
+
+  function toggleFav(n){
+    if(favs[n]){ delete favs[n]; } else { favs[n] = true; }
+    saveFavs(favs);
+    render();
+  }
+
+  function copyFavs(){
+    var starred = allQuestions().filter(function(q){ return favs[q.n]; });
+    var list = starred.length ? starred : allQuestions();
+    var text = list.map(function(q){ return q.n + '. ' + q.t; }).join('\n\n');
+    var done = function(){
+      var b = document.getElementById('q-copy-btn');
+      var old = b.textContent;
+      b.textContent = '✓ Copied ' + list.length + ' question' + (list.length>1?'s':'');
+      setTimeout(function(){ b.textContent = old; }, 1600);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text, done); });
+    } else { fallbackCopy(text, done); }
+  }
+  function fallbackCopy(text, done){
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+    done();
+  }
+
+  // --- page toggle ---
+  function showPage(page){
+    var memo = document.getElementById('page-memo');
+    var qs = document.getElementById('page-questions');
+    var btn = document.getElementById('q-toggle-btn');
+    var badge = document.getElementById('q-fav-badge');
+    if(page === 'questions'){
+      memo.style.display = 'none';
+      qs.classList.add('active');
+      btn.firstChild.textContent = '← Memo';
+      window.scrollTo(0,0);
+    } else {
+      memo.style.display = 'block';
+      qs.classList.remove('active');
+      btn.firstChild.textContent = 'Questions';
+    }
+    // keep badge state
+    var starredCount = Object.keys(favs).length;
+    badge.style.display = starredCount ? 'inline-block' : 'none';
+  }
+  function togglePage(){
+    var qs = document.getElementById('page-questions');
+    showPage(qs.classList.contains('active') ? 'memo' : 'questions');
+  }
+
+  render();
 </script>
 
 </body>
